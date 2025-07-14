@@ -1,5 +1,5 @@
 // 🌤️ Set background based on time of day
-const currentHour = new Date().getHours();
+const currentHour = 14;
 let timeClass = "morning";
 
 if (currentHour >= 6 && currentHour < 12) {
