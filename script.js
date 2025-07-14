@@ -1,12 +1,12 @@
-// Detect time of day and apply gradient background
-const hour = new Date().getHours();
+// 🌤️ Set background based on time of day
+const currentHour = new Date().getHours();
 let timeClass = "morning";
 
-if (hour >= 6 && hour < 12) {
+if (currentHour >= 6 && currentHour < 12) {
   timeClass = "morning";
-} else if (hour >= 12 && hour < 18) {
+} else if (currentHour >= 12 && currentHour < 18) {
   timeClass = "afternoon";
-} else if (hour >= 18 && hour < 21) {
+} else if (currentHour >= 18 && currentHour < 21) {
   timeClass = "evening";
 } else {
   timeClass = "night";
@@ -14,10 +14,11 @@ if (hour >= 6 && hour < 12) {
 
 document.body.classList.add(timeClass);
 
+// 🕒 Highlight today's hours and show open/closed status
 document.addEventListener("DOMContentLoaded", () => {
   const now = new Date();
-  const dayIndex = now.getDay(); // Sunday = 0, Monday = 1, etc.
-  const hours = now.getHours();
+  const dayIndex = now.getDay(); // 0 = Sunday, 6 = Saturday
+  const hour = now.getHours();
   const minutes = now.getMinutes().toString().padStart(2, "0");
 
   const dayNames = [
@@ -32,36 +33,40 @@ document.addEventListener("DOMContentLoaded", () => {
     thursday: [8, 18],
     friday: [8, 18],
     saturday: [8, 15],
-    sunday: null // closed
+    sunday: null // Closed all day
   };
 
   const todayId = dayNames[dayIndex];
-  const todayItem = document.getElementById(todayId);
+  const todayElement = document.getElementById(todayId);
   const shopStatus = document.getElementById("shop-status");
 
-  if (todayItem) {
-    todayItem.style.backgroundColor = "#e63946";
-    todayItem.style.color = "white";
-    todayItem.style.fontWeight = "bold";
-    todayItem.style.borderRadius = "8px";
-    todayItem.style.paddingLeft = "10px";
+  // Highlight today's day in the hours list
+  if (todayElement) {
+    todayElement.style.backgroundColor = "#e63946";
+    todayElement.style.color = "white";
+    todayElement.style.fontWeight = "bold";
+    todayElement.style.borderRadius = "8px";
+    todayElement.style.paddingLeft = "10px";
   }
 
-  const hour12 = hours % 12 || 12;
-  const ampm = hours >= 12 ? "PM" : "AM";
+  // Format current time to 12-hour format
+  const hour12 = hour % 12 || 12;
+  const ampm = hour >= 12 ? "PM" : "AM";
   const timeString = `${hour12}:${minutes} ${ampm}`;
 
+  // Determine open/closed status
   let statusText = `Current time: ${timeString} — `;
 
   if (openHours[todayId]) {
     const [open, close] = openHours[todayId];
-    statusText += (hours >= open && hours < close)
+    statusText += (hour >= open && hour < close)
       ? "🟢 Open"
       : "🔴 Closed";
   } else {
     statusText += "🔴 Closed";
   }
 
+  // Display status below the hours table
   if (shopStatus) {
     shopStatus.textContent = statusText;
     shopStatus.style.marginTop = "15px";
