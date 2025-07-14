@@ -11,7 +11,7 @@ body {
 /* 🌅 Time-Based Backgrounds */
 /* 🌅 Time-Based Backgrounds – Softer, Moodier Pastels */
 body.morning {
-  background: linear-gradient(to bottom, #fbe6d4, #f9c8b8); /* Warm pastel sunrise */
+  background: linear-gradient(to bottom, #e9c494, #f9c8b8); /* Warm pastel sunrise */
 }
 
 body.afternoon {
@@ -403,4 +403,47 @@ footer .social-links a:hover {
     font-size: 1rem;
     text-align: center;
   }
+}
+
+.float-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #E63946;
+  color: white;
+  padding: 16px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  z-index: 999;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease;
+}
+.float-btn:hover {
+  transform: scale(1.1);
+}
+
+/* 🚪 Realistic Garage Door Load Animation */
+.garage-door {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      #2c2c2c,
+      #2c2c2c 40px,
+      #1f1f1f 41px,
+      #1f1f1f 42px
+    );
+  z-index: 9999;
+  animation: openGarage 2.2s ease forwards;
+  box-shadow: inset 0 -10px 20px rgba(0,0,0,0.3);
+}
+
+/* 🚗 Animation for sliding up */
+@keyframes openGarage {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-100%); }
 }
